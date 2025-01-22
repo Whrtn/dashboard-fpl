@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 
 const App = () => {
   const [teamIdResponse, setTeamIdResponse] = useState({});
+  const [leagueIdResponse, setLeagueIdResponse] = useState({});
 
   return (
     <BrowserRouter>
@@ -19,9 +20,22 @@ const App = () => {
           />
           <Route
             path="/select-league"
-            element={<SelectLeague teamIdResponse={teamIdResponse} />}
+            element={
+              <SelectLeague
+                teamIdResponse={teamIdResponse}
+                setLeagueIdResponse={setLeagueIdResponse}
+              />
+            }
           />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <Dashboard
+                teamIdResponse={teamIdResponse}
+                leagueIdResponse={leagueIdResponse}
+              />
+            }
+          />
         </Routes>
       </Layout>
     </BrowserRouter>

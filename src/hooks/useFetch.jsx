@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [err, setErr] = useState(null);
 
   useEffect(() => {
     let isMounted = true; // Prevent state updates if component unmounts
@@ -21,7 +21,7 @@ const useFetch = (url) => {
         }
       } catch (err) {
         if (isMounted) {
-          setError(err.message);
+          setErr(err.message);
         }
       } finally {
         if (isMounted) {
@@ -37,7 +37,7 @@ const useFetch = (url) => {
     };
   }, [url]);
 
-  return { data, loading, error };
+  return { data, loading, err };
 };
 
 export default useFetch;

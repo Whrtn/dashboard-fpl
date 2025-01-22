@@ -1,7 +1,7 @@
 import React from "react";
 import DashboardTableBody from "./DashboardTableBody";
 
-const GWTable = () => {
+const GWTable = ({ index, user, value, captain, viceCaptain }) => {
   return (
     <table className="shadow-lg shadow-neutral-400 w-full border-collapse text-lg">
       <thead className="text-center text-white bg-primary ">
@@ -12,11 +12,11 @@ const GWTable = () => {
         </tr>
       </thead>
       <DashboardTableBody
-        index="1"
-        user="Dan Wharton"
-        value="74"
-        captain="Cunha (C)"
-        viceCaptain="Salah (V)"
+        index={index}
+        user={user}
+        value={value}
+        captain={captain}
+        viceCaptain={viceCaptain}
       />
     </table>
   );
