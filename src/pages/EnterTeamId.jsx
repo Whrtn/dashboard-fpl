@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import CenteredTile from "../components/CenteredTile";
 import ConfirmButton from "../components/ConfirmButton";
-import useFetch from "../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
-const EnterTeamId = () => {
+const EnterTeamId = ({ setTeamIdResponse }) => {
   const [teamId, setTeamId] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     setTeamId(e.target.value);
-    console.log(teamId);
   };
 
   const handleContinue = () => {
     if (teamId.trim() == "") {
       setError("*This field cannot be empty");
+    } else {
+      setTeamIdResponse(teamId);
+      navigate("/select-league");
     }
   };
 
