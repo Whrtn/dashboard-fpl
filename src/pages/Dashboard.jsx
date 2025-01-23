@@ -3,6 +3,7 @@ import DashboardTiles from "../components/DashboardTiles";
 import GWTable from "../components/GWTable";
 import TotalTable from "../components/TotalTable";
 import useFetch from "../hooks/useFetch";
+import DashboardTableBody from "../components/DashboardTableBody";
 
 const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   const {
@@ -44,8 +45,45 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
         />
       </div>
       <div className="flex items-center justify-between gap-10">
-        <GWTable index="1" user="1" value="1" captain="1" viceCaptain="1" />
-        <TotalTable />
+        <GWTable>
+          {leagueData &&
+            leagueData.standings.results
+              .slice()
+              .sort((a, b) => b.event_total - a.event_total)
+              .map((leagueEntry, index) => (
+                <DashboardTableBody
+                  key={leagueEntry.id}
+                  index={index + 1}
+                  user={leagueEntry.player_name}
+                  value={leagueEntry.event_total}
+                  captain="Salah"
+                  viceCaptain="Jackson"
+                  selected={
+                    leagueEntry.entry.toString() === teamIdResponse
+                      ? "bg-blue-100"
+                      : ""
+                  }
+                />
+              ))}
+        </GWTable>
+        <TotalTable>
+          {leagueData &&
+            leagueData.standings.results.map((leagueEntry, index) => (
+              <DashboardTableBody
+                key={leagueEntry.id}
+                index={index + 1}
+                user={leagueEntry.player_name}
+                value={leagueEntry.total}
+                captain="Salah"
+                viceCaptain="Jackson"
+                selected={
+                  leagueEntry.entry.toString() === teamIdResponse
+                    ? "bg-blue-100"
+                    : ""
+                }
+              />
+            ))}
+        </TotalTable>
       </div>
     </section>
   );
