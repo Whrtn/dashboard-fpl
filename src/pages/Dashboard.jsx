@@ -22,7 +22,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   );
   return (
     <section className="w-full pt-10 container mx-auto">
-      <div className="bg-primary text-2xl text-center p-10 rounded-2xl text-white shadow-neutral-400 shadow-lg mb-4">
+      <div className="bg-primary sm:text-2xl text-xl text-center mx-4 sm:mx-0 p-10 rounded-2xl text-white shadow-neutral-400 shadow-lg mb-4">
         <h1 className="font-bold">
           {teamData && teamData.player_first_name}{" "}
           {teamData && teamData.player_last_name}
@@ -30,7 +30,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
         <h2>{teamData && teamData.name}</h2>
         <h2>{leagueData && leagueData.league.name}</h2>
       </div>
-      <div className="flex items-center justify-between gap-10 text-center font-bold mb-4">
+      <div className="sm:flex-row mx-4 sm:mx-0 flex justify-between gap-4 text-center font-bold mb-4 ">
         <DashboardTiles
           tileHeading="Years Active"
           tileValue={teamData && teamData.years_active}
@@ -44,9 +44,11 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
           tileValue={teamData && teamData.summary_overall_points}
         />
       </div>
-      <div className="flex items-center justify-between gap-10">
+      <div className="flex sm:flex-row flex-col items-center justify-between gap-4 mx-4 sm:mx-0">
         <div className="w-full">
-          <h1 className="font-bold text-xl py-2">Gameweek Standings</h1>
+          <h1 className="font-bold text-xl py-2 sm:text-left text-center">
+            Gameweek Standings
+          </h1>
           <GWTable>
             {leagueData &&
               leagueData.standings.results
@@ -70,7 +72,9 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
           </GWTable>
         </div>
         <div className="w-full">
-          <h1 className="font-bold text-xl py-2">Overall Standings</h1>
+          <h1 className="font-bold text-xl py-2 sm:text-left text-center">
+            Overall Standings
+          </h1>
           <TotalTable>
             {leagueData &&
               leagueData.standings.results.map((leagueEntry, index) => (

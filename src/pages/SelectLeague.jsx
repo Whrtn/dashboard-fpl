@@ -27,12 +27,12 @@ const SelectLeague = ({ teamIdResponse, setLeagueIdResponse }) => {
 
   return (
     <CenteredTile>
-      <h1 className="text-2xl font-bold mb-6">Select a League</h1>
+      <h1 className="md:text-2xl text-xl font-bold mb-4">Select a League</h1>
 
       {data &&
         data.leagues.classic.map((league) => (
           <p
-            className={`cursor-pointer p-2 hover:bg-gray-200 w-full mb-2 ${
+            className={`cursor-pointer p-2 hover:bg-gray-200 w-full mb-4 ${
               league.id === leagueId ? "bg-gray-200" : ""
             }`}
             key={league.id}

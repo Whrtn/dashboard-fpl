@@ -23,7 +23,7 @@ const EnterTeamId = ({ setTeamIdResponse }) => {
 
   return (
     <CenteredTile>
-      <h1 className="text-2xl font-bold mb-6">Enter Your Team ID</h1>
+      <h1 className="md:text-2xl text-xl font-bold mb-6">Enter Your Team ID</h1>
 
       <input
         type="text"
