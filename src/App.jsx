@@ -4,6 +4,7 @@ import EnterTeamId from "./pages/EnterTeamId";
 import SelectLeague from "./pages/SelectLeague";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./components/Layout";
+import TeamIdHelp from "./pages/TeamIdHelp";
 
 const App = () => {
   const [teamIdResponse, setTeamIdResponse] = useState({});
@@ -18,6 +19,9 @@ const App = () => {
             path="/enter-team-id"
             element={<EnterTeamId setTeamIdResponse={setTeamIdResponse} />}
           />
+
+          <Route path="/team-id-help" element={<TeamIdHelp />} />
+
           <Route
             path="/select-league"
             element={

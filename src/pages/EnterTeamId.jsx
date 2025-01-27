@@ -21,6 +21,10 @@ const EnterTeamId = ({ setTeamIdResponse }) => {
     }
   };
 
+  const handleTeamIdHelp = () => {
+    navigate("/team-id-help");
+  };
+
   return (
     <CenteredTile>
       <h1 className="md:text-2xl text-xl font-bold mb-6">Enter Your Team ID</h1>
@@ -36,7 +40,10 @@ const EnterTeamId = ({ setTeamIdResponse }) => {
 
       <ConfirmButton name="Continue" onClick={handleContinue} />
 
-      <p className="text-sm text-gray-500 cursor-pointer">
+      <p
+        className="text-sm text-gray-500 cursor-pointer"
+        onClick={handleTeamIdHelp}
+      >
         Where can I find this?
       </p>
     </CenteredTile>
