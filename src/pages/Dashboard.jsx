@@ -45,17 +45,40 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
         />
       </div>
       <div className="flex items-center justify-between gap-10">
-        <GWTable>
-          {leagueData &&
-            leagueData.standings.results
-              .slice()
-              .sort((a, b) => b.event_total - a.event_total)
-              .map((leagueEntry, index) => (
+        <div className="w-full">
+          <h1 className="font-bold text-xl py-2">Gameweek Standings</h1>
+          <GWTable>
+            {leagueData &&
+              leagueData.standings.results
+                .slice()
+                .sort((a, b) => b.event_total - a.event_total)
+                .map((leagueEntry, index) => (
+                  <DashboardTableBody
+                    key={leagueEntry.id}
+                    index={index + 1}
+                    user={leagueEntry.player_name}
+                    value={leagueEntry.event_total}
+                    captain="Salah"
+                    viceCaptain="Jackson"
+                    selected={
+                      leagueEntry.entry.toString() === teamIdResponse
+                        ? "bg-blue-100"
+                        : ""
+                    }
+                  />
+                ))}
+          </GWTable>
+        </div>
+        <div className="w-full">
+          <h1 className="font-bold text-xl py-2">Overall Standings</h1>
+          <TotalTable>
+            {leagueData &&
+              leagueData.standings.results.map((leagueEntry, index) => (
                 <DashboardTableBody
                   key={leagueEntry.id}
                   index={index + 1}
                   user={leagueEntry.player_name}
-                  value={leagueEntry.event_total}
+                  value={leagueEntry.total}
                   captain="Salah"
                   viceCaptain="Jackson"
                   selected={
@@ -65,25 +88,8 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
                   }
                 />
               ))}
-        </GWTable>
-        <TotalTable>
-          {leagueData &&
-            leagueData.standings.results.map((leagueEntry, index) => (
-              <DashboardTableBody
-                key={leagueEntry.id}
-                index={index + 1}
-                user={leagueEntry.player_name}
-                value={leagueEntry.total}
-                captain="Salah"
-                viceCaptain="Jackson"
-                selected={
-                  leagueEntry.entry.toString() === teamIdResponse
-                    ? "bg-blue-100"
-                    : ""
-                }
-              />
-            ))}
-        </TotalTable>
+          </TotalTable>
+        </div>
       </div>
     </section>
   );
