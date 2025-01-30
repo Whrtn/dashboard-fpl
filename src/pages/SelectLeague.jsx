@@ -3,6 +3,7 @@ import CenteredTile from "../components/CenteredTile";
 import ConfirmButton from "../components/ConfirmButton";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const SelectLeague = ({ teamIdResponse, setLeagueIdResponse }) => {
   const [leagueId, setLeagueId] = useState("");
@@ -25,10 +26,12 @@ const SelectLeague = ({ teamIdResponse, setLeagueIdResponse }) => {
     }
   };
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   return (
     <CenteredTile>
       <h1 className="md:text-2xl text-xl font-bold mb-4">Select a League</h1>
-
       {data &&
         data.leagues.classic.map((league) => (
           <p

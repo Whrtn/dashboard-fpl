@@ -4,6 +4,7 @@ import GWTable from "../components/GWTable";
 import TotalTable from "../components/TotalTable";
 import useFetch from "../hooks/useFetch";
 import DashboardTableBody from "../components/DashboardTableBody";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   const {
@@ -20,9 +21,16 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   } = useFetch(
     `https://fantasy.premierleague.com/api/leagues-classic/${leagueIdResponse}/standings/`
   );
+  if (teamLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <section className="w-full pt-10 container mx-auto">
-      <div className="bg-primary sm:text-2xl text-xl text-center mx-4 sm:mx-0 p-10 rounded-2xl text-white shadow-neutral-400 shadow-lg mb-4">
+      <div
+        className={
+          "bg-primary sm:text-2xl text-xl text-center mx-4 sm:mx-0 p-10 rounded-2xl text-white shadow-neutral-400 shadow-lg mb-4 "
+        }
+      >
         <h1 className="font-bold">
           {teamData && teamData.player_first_name}{" "}
           {teamData && teamData.player_last_name}
@@ -44,7 +52,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
           tileValue={teamData && teamData.summary_overall_points}
         />
       </div>
-      <div className="flex sm:flex-row flex-col items-center justify-between gap-4 mx-4 sm:mx-0">
+      <div className="flex lg:flex-row flex-col items-center justify-between gap-4 mx-4 sm:mx-0">
         <div className="w-full">
           <h1 className="font-bold text-xl py-2 sm:text-left text-center">
             Gameweek Standings
