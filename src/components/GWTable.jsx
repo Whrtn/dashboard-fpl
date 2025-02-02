@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardTableBody from "./DashboardTableBody";
 
 const GWTable = ({ children }) => {
   return (
@@ -7,7 +6,7 @@ const GWTable = ({ children }) => {
       <thead className="text-center text-white bg-primary ">
         <tr>
           <th className="py-3">#</th>
-          <th className="text-left py-3">Captain</th>
+          <th className="text-left py-3">Name</th>
           <th className="py-3">GW</th>
         </tr>
       </thead>

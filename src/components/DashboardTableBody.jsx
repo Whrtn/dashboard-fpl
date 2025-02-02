@@ -1,13 +1,6 @@
 import React from "react";
 
-const DashboardTableBody = ({
-  index,
-  user,
-  value,
-  captain,
-  viceCaptain,
-  selected,
-}) => {
+const DashboardTableBody = ({ index, user, value, teamName, selected }) => {
   return (
     <tbody className={`text-center border-t border-gray-300 ${selected}`}>
       <tr>
@@ -17,13 +10,8 @@ const DashboardTableBody = ({
       </tr>
       <tr>
         <td></td>
-        <td className="text-left text-sm">{captain} (c)</td>
+        <td className="text-left text-sm pb-3">{teamName}</td>
         <td></td>
-      </tr>
-      <tr>
-        <td className="pb-3"></td>
-        <td className="text-left pb-3 text-sm">{viceCaptain} (v)</td>
-        <td className="pb-3"></td>
       </tr>
     </tbody>
   );

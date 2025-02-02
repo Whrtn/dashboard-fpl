@@ -68,8 +68,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
                     index={index + 1}
                     user={leagueEntry.player_name}
                     value={leagueEntry.event_total}
-                    captain="Salah"
-                    viceCaptain="Jackson"
+                    teamName={leagueEntry.entry_name}
                     selected={
                       leagueEntry.entry.toString() === teamIdResponse
                         ? "bg-blue-100"
@@ -91,8 +90,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
                   index={index + 1}
                   user={leagueEntry.player_name}
                   value={leagueEntry.total}
-                  captain="Salah"
-                  viceCaptain="Jackson"
+                  teamName={leagueEntry.entry_name}
                   selected={
                     leagueEntry.entry.toString() === teamIdResponse
                       ? "bg-blue-100"

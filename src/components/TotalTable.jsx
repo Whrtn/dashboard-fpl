@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardTableBody from "./DashboardTableBody";
 
 const TotalTable = ({ children }) => {
   return (
@@ -7,7 +6,7 @@ const TotalTable = ({ children }) => {
       <thead className="text-center text-white bg-primary ">
         <tr>
           <th className="py-3">#</th>
-          <th className="text-left py-3">Captain</th>
+          <th className="text-left py-3">Name</th>
           <th className="py-3">Total</th>
         </tr>
       </thead>
