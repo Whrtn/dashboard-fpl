@@ -1,21 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CenteredTile from "../components/CenteredTile";
 import ConfirmButton from "../components/ConfirmButton";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 const EnterTeamId = ({ setTeamIdResponse }) => {
   const [teamId, setTeamId] = useState("");
   const [error, setError] = useState("");
+  const [totalPlayers, setTotalPlayers] = useState(null);
   const navigate = useNavigate();
+
+  const { data, loading, err } = useFetch(
+    `https://fantasy.premierleague.com/api/bootstrap-static/`
+  );
+
+  // Set total players when data is fetched
+  useEffect(() => {
+    if (data?.total_players) {
+      setTotalPlayers(data.total_players);
+    }
+  }, [data]);
 
   const handleInput = (e) => {
     setTeamId(e.target.value);
   };
 
   const handleContinue = () => {
-    if (teamId.trim() == "") {
+    if (totalPlayers === null) {
+      setError("*Loading total players, please try again.");
+      return;
+    }
+
+    const trimmedTeamId = teamId.trim();
+    const teamIdNumber = parseInt(trimmedTeamId, 10);
+
+    if (trimmedTeamId === "") {
       setError("*This field cannot be empty");
+    } else if (isNaN(teamIdNumber)) {
+      setError("*This field must be a number");
+    } else if (teamIdNumber <= 0 || teamIdNumber > totalPlayers) {
+      setError("*Please enter a valid FPL Team ID");
     } else {
+      setError("");
       setTeamIdResponse(teamId);
       navigate("/select-league");
     }
