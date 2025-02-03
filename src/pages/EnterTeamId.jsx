@@ -16,6 +16,7 @@ const EnterTeamId = ({ setTeamIdResponse }) => {
 
   // Set total players when data is fetched
   useEffect(() => {
+    localStorage.clear();
     if (data?.total_players) {
       setTotalPlayers(data.total_players);
     }
