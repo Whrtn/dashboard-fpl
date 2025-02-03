@@ -21,7 +21,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   } = useFetch(
     `https://fantasy.premierleague.com/api/leagues-classic/${leagueIdResponse}/standings/`
   );
-  if (teamLoading) {
+  if (teamLoading || leagueLoading) {
     return <LoadingSpinner />;
   }
   return (
@@ -32,24 +32,23 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
         }
       >
         <h1 className="font-bold">
-          {teamData && teamData.player_first_name}{" "}
-          {teamData && teamData.player_last_name}
+          {teamData.player_first_name} {teamData.player_last_name}
         </h1>
-        <h2>{teamData && teamData.name}</h2>
-        <h2>{leagueData && leagueData.league.name}</h2>
+        <h2>{teamData.name}</h2>
+        <h2>{leagueData.league.name}</h2>
       </div>
       <div className="sm:flex-row mx-4 sm:mx-0 flex justify-between gap-4 text-center font-bold mb-4 ">
         <DashboardTiles
           tileHeading="Years Active"
-          tileValue={teamData && teamData.years_active}
+          tileValue={teamData.years_active}
         />
         <DashboardTiles
           tileHeading="GW Points"
-          tileValue={teamData && teamData.summary_event_points}
+          tileValue={teamData.summary_event_points}
         />
         <DashboardTiles
           tileHeading="Overall Points"
-          tileValue={teamData && teamData.summary_overall_points}
+          tileValue={teamData.summary_overall_points}
         />
       </div>
       <div className="flex lg:flex-row flex-col items-center justify-between gap-4 mx-4 sm:mx-0">
@@ -58,38 +57,15 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
             Gameweek Standings
           </h1>
           <GWTable>
-            {leagueData &&
-              leagueData.standings.results
-                .slice()
-                .sort((a, b) => b.event_total - a.event_total)
-                .map((leagueEntry, index) => (
-                  <DashboardTableBody
-                    key={leagueEntry.id}
-                    index={index + 1}
-                    user={leagueEntry.player_name}
-                    value={leagueEntry.event_total}
-                    teamName={leagueEntry.entry_name}
-                    selected={
-                      leagueEntry.entry.toString() === teamIdResponse
-                        ? "bg-blue-100"
-                        : ""
-                    }
-                  />
-                ))}
-          </GWTable>
-        </div>
-        <div className="w-full">
-          <h1 className="font-bold text-xl py-2 sm:text-left text-center">
-            Overall Standings
-          </h1>
-          <TotalTable>
-            {leagueData &&
-              leagueData.standings.results.map((leagueEntry, index) => (
+            {leagueData.standings.results
+              .slice()
+              .sort((a, b) => b.event_total - a.event_total)
+              .map((leagueEntry, index) => (
                 <DashboardTableBody
                   key={leagueEntry.id}
                   index={index + 1}
                   user={leagueEntry.player_name}
-                  value={leagueEntry.total}
+                  value={leagueEntry.event_total}
                   teamName={leagueEntry.entry_name}
                   selected={
                     leagueEntry.entry.toString() === teamIdResponse
@@ -98,6 +74,27 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
                   }
                 />
               ))}
+          </GWTable>
+        </div>
+        <div className="w-full">
+          <h1 className="font-bold text-xl py-2 sm:text-left text-center">
+            Overall Standings
+          </h1>
+          <TotalTable>
+            {leagueData.standings.results.map((leagueEntry, index) => (
+              <DashboardTableBody
+                key={leagueEntry.id}
+                index={index + 1}
+                user={leagueEntry.player_name}
+                value={leagueEntry.total}
+                teamName={leagueEntry.entry_name}
+                selected={
+                  leagueEntry.entry.toString() === teamIdResponse
+                    ? "bg-blue-100"
+                    : ""
+                }
+              />
+            ))}
           </TotalTable>
         </div>
       </div>
