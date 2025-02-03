@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CenteredTile from "../components/CenteredTile";
 import ConfirmButton from "../components/ConfirmButton";
 import useFetch from "../hooks/useFetch";
@@ -22,6 +22,7 @@ const SelectLeague = ({ teamIdResponse, setLeagueIdResponse }) => {
       setError("*Please select a league");
     } else {
       setLeagueIdResponse(leagueId);
+      localStorage.setItem("leagueId", leagueId);
       navigate("/dashboard");
     }
   };

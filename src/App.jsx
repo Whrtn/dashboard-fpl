@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import EnterTeamId from "./pages/EnterTeamId";
 import SelectLeague from "./pages/SelectLeague";
@@ -9,6 +9,13 @@ import TeamIdHelp from "./pages/TeamIdHelp";
 const App = () => {
   const [teamIdResponse, setTeamIdResponse] = useState({});
   const [leagueIdResponse, setLeagueIdResponse] = useState({});
+
+  useEffect(() => {
+    const storedTeamId = localStorage.getItem("teamId");
+    const storedLeagueId = localStorage.getItem("leagueId");
+    if (storedTeamId) setTeamIdResponse(storedTeamId);
+    if (storedLeagueId) setLeagueIdResponse(storedLeagueId);
+  }, []);
 
   return (
     <BrowserRouter>

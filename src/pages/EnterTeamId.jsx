@@ -43,6 +43,7 @@ const EnterTeamId = ({ setTeamIdResponse }) => {
     } else {
       setError("");
       setTeamIdResponse(teamId);
+      localStorage.setItem("teamId", teamId);
       navigate("/select-league");
     }
   };
