@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DashboardTiles from "../components/DashboardTiles";
 import GWTable from "../components/GWTable";
 import TotalTable from "../components/TotalTable";
@@ -6,21 +6,21 @@ import useFetch from "../hooks/useFetch";
 import DashboardTableBody from "../components/DashboardTableBody";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Navigate } from "react-router-dom";
+import PaginationButton from "../components/PaginationButton";
 
 const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
+  let [pageCount, setPageCount] = useState(1);
   const {
     data: teamData,
     loading: teamLoading,
     err: teamError,
-  } = useFetch(
-    `https://fantasy.premierleague.com/api/entry/${teamIdResponse}/`
-  );
+  } = useFetch(`https://fantasy.premierleague.com/api/entry/${teamIdResponse}`);
   const {
     data: leagueData,
     loading: leagueLoading,
     err: leagueError,
   } = useFetch(
-    `https://fantasy.premierleague.com/api/leagues-classic/${leagueIdResponse}/standings/`
+    `https://fantasy.premierleague.com/api/leagues-classic/${leagueIdResponse}/standings/?page_standings=${pageCount}`
   );
 
   if (teamError || leagueError) {
@@ -30,6 +30,14 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   if (teamLoading || leagueLoading) {
     return <LoadingSpinner />;
   }
+
+  const handleNextPage = () => {
+    setPageCount(pageCount + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setPageCount(pageCount - 1);
+  };
 
   return (
     <section className="w-full pt-10 container mx-auto">
@@ -59,7 +67,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
         />
       </div>
       <div className="flex lg:flex-row flex-col items-center justify-between gap-4 mx-4 sm:mx-0">
-        <div className="w-full">
+        {/* <div className="w-full">
           <h1 className="font-bold text-xl py-2 sm:text-left text-center">
             Gameweek Standings
           </h1>
@@ -70,7 +78,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
               .map((leagueEntry, index) => (
                 <DashboardTableBody
                   key={leagueEntry.id}
-                  index={index + 1}
+                  index={leagueEntry.rank}
                   user={leagueEntry.player_name}
                   value={leagueEntry.event_total}
                   teamName={leagueEntry.entry_name}
@@ -82,7 +90,18 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
                 />
               ))}
           </GWTable>
-        </div>
+          <div className="flex items-center mb-4 justify-center gap-4">
+            <PaginationButton
+              text="<"
+              onclick={handlePreviousPage}
+              isDisabled={pageCount === 1}
+              disabledStyle={pageCount === 1 ? "bg-gray-300 text-gray-500" : ""}
+            />
+
+            <p>Page {pageCount}</p>
+            <PaginationButton text=">" onclick={handleNextPage} />
+          </div>
+        </div> */}
         <div className="w-full">
           <h1 className="font-bold text-xl py-2 sm:text-left text-center">
             Overall Standings
@@ -91,7 +110,7 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
             {leagueData.standings.results.map((leagueEntry, index) => (
               <DashboardTableBody
                 key={leagueEntry.id}
-                index={index + 1}
+                index={leagueEntry.rank}
                 user={leagueEntry.player_name}
                 value={leagueEntry.total}
                 teamName={leagueEntry.entry_name}
@@ -103,6 +122,26 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
               />
             ))}
           </TotalTable>
+          <div className="flex items-center mb-4 justify-center gap-4">
+            <PaginationButton
+              text="<"
+              onclick={handlePreviousPage}
+              isDisabled={pageCount === 1}
+              disabledStyle={pageCount === 1 ? "bg-gray-300 text-gray-500" : ""}
+            />
+
+            <p>Page {pageCount}</p>
+            <PaginationButton
+              text=">"
+              onclick={handleNextPage}
+              isDisabled={!leagueData.standings.has_next}
+              disabledStyle={
+                !leagueData.standings.has_next
+                  ? "bg-gray-300 text-gray-500"
+                  : ""
+              }
+            />
+          </div>
         </div>
       </div>
     </section>
