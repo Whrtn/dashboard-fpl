@@ -5,6 +5,7 @@ import TotalTable from "../components/TotalTable";
 import useFetch from "../hooks/useFetch";
 import DashboardTableBody from "../components/DashboardTableBody";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { Navigate } from "react-router-dom";
 
 const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   const {
@@ -21,9 +22,15 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
   } = useFetch(
     `https://fantasy.premierleague.com/api/leagues-classic/${leagueIdResponse}/standings/`
   );
+
+  if (teamError || leagueError) {
+    return <Navigate to="/" />;
+  }
+
   if (teamLoading || leagueLoading) {
     return <LoadingSpinner />;
   }
+
   return (
     <section className="w-full pt-10 container mx-auto">
       <div

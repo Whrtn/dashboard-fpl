@@ -47,6 +47,7 @@ const App = () => {
               />
             }
           />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import CenteredTile from "../components/CenteredTile";
 import ConfirmButton from "../components/ConfirmButton";
 import useFetch from "../hooks/useFetch";
@@ -9,9 +10,18 @@ const SelectLeague = ({ teamIdResponse, setLeagueIdResponse }) => {
   const [leagueId, setLeagueId] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const { data, loading, err } = useFetch(
     `https://fantasy.premierleague.com/api/entry/${teamIdResponse}/`
   );
+
+  if (err) {
+    return <Navigate to="/" />;
+  }
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   const handleSelectLeague = (id) => {
     setLeagueId(id);
@@ -27,9 +37,6 @@ const SelectLeague = ({ teamIdResponse, setLeagueIdResponse }) => {
     }
   };
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
   return (
     <CenteredTile>
       <h1 className="md:text-2xl text-xl font-bold mb-4">Select a League</h1>
