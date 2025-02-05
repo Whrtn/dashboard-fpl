@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import DashboardTiles from "../components/DashboardTiles";
-import GWTable from "../components/GWTable";
 import TotalTable from "../components/TotalTable";
 import useFetch from "../hooks/useFetch";
 import DashboardTableBody from "../components/DashboardTableBody";
@@ -67,41 +66,6 @@ const Dashboard = ({ teamIdResponse, leagueIdResponse }) => {
         />
       </div>
       <div className="flex lg:flex-row flex-col items-center justify-between gap-4 mx-4 sm:mx-0">
-        {/* <div className="w-full">
-          <h1 className="font-bold text-xl py-2 sm:text-left text-center">
-            Gameweek Standings
-          </h1>
-          <GWTable>
-            {leagueData.standings.results
-              .slice()
-              .sort((a, b) => b.event_total - a.event_total)
-              .map((leagueEntry, index) => (
-                <DashboardTableBody
-                  key={leagueEntry.id}
-                  index={leagueEntry.rank}
-                  user={leagueEntry.player_name}
-                  value={leagueEntry.event_total}
-                  teamName={leagueEntry.entry_name}
-                  selected={
-                    leagueEntry.entry.toString() === teamIdResponse
-                      ? "bg-blue-100"
-                      : ""
-                  }
-                />
-              ))}
-          </GWTable>
-          <div className="flex items-center mb-4 justify-center gap-4">
-            <PaginationButton
-              text="<"
-              onclick={handlePreviousPage}
-              isDisabled={pageCount === 1}
-              disabledStyle={pageCount === 1 ? "bg-gray-300 text-gray-500" : ""}
-            />
-
-            <p>Page {pageCount}</p>
-            <PaginationButton text=">" onclick={handleNextPage} />
-          </div>
-        </div> */}
         <div className="w-full">
           <h1 className="font-bold text-xl py-2 sm:text-left text-center">
             Overall Standings

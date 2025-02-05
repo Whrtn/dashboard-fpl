@@ -3,6 +3,7 @@ import CenteredTile from "../components/CenteredTile";
 import ConfirmButton from "../components/ConfirmButton";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const EnterTeamId = ({ setTeamIdResponse }) => {
   const [teamId, setTeamId] = useState("");
@@ -21,6 +22,18 @@ const EnterTeamId = ({ setTeamIdResponse }) => {
       setTotalPlayers(data.total_players);
     }
   }, [data]);
+
+  if (err) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center">
+        Error connecting to the FPL API, please try again later
+      </div>
+    );
+  }
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   const handleInput = (e) => {
     setTeamId(e.target.value);
