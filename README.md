@@ -1,4 +1,4 @@
-# DashboardFPL
+# DashboardFPL <img src="android-chrome-512x512" alt="">
 
 A simple dashboard for Fantasy Premier League through the user of the FPL API
 
